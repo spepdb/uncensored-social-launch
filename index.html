@@ -5,377 +5,463 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Uncensored Social – Free Speech. Private by Design.</title>
 
-  <meta name="description" content="Uncensored Social is a community-funded social platform focused on free speech, online privacy, and encrypted messaging. Join the waitlist or support the build.">
+  <meta
+    name="description"
+    content="Uncensored Social is a community-funded social platform focused on free speech, online privacy, and encrypted messaging. Join the waitlist or support the build with crypto."
+  />
 
   <!-- Favicon / logo -->
-  <link rel="icon" type="image/png" href="uncensored-logo.PNG" />
+  <link rel="icon" type="image/png" href="uncensored-logo.png" />
+
+  <!-- Font Awesome (for small icons) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <div class="page-shell" id="top">
-    <!-- HEADER -->
-    <header class="site-header">
-      <a href="#top" class="brand">
+<body class="landing-body">
+  <!-- ================= TOP NAV ================= -->
+  <header class="top-nav" id="topNav">
+    <div class="nav-inner">
+      <a href="#hero" class="brand">
         <div class="brand-mark">
           <img
-            src="uncensored-logo.PNG"
+            src="uncensored-logo.png"
             alt="Uncensored Social logo"
             class="brand-logo-img"
             onerror="this.style.display='none'"
           />
-          <span class="brand-mark-fallback">U</span>
+          <span class="brand-fallback">U</span>
         </div>
         <div class="brand-text">
-          <div class="brand-name">Uncensored Social</div>
-          <div class="brand-tagline">Free speech. Private by design.</div>
+          <span class="brand-name">Uncensored Social</span>
+          <span class="brand-tagline">Free speech. Private by design.</span>
         </div>
       </a>
 
-      <nav class="site-nav">
-        <a href="#mission">Mission</a>
-        <a href="#waitlist">Waitlist</a>
-        <a href="#donate">Donate</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#faq">FAQ</a>
+      <nav class="nav-links">
+        <a href="#mission" class="nav-link">Mission</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#roadmap" class="nav-link">Roadmap</a>
+        <a href="#donate" class="nav-link">Donate</a>
+        <a href="#faq" class="nav-link">FAQ</a>
       </nav>
-    </header>
 
-    <!-- HERO -->
-    <main>
-      <section class="hero">
-        <div class="hero-left">
-          <div class="pill pill-outline">Community-funded social platform</div>
+      <a href="#waitlist" class="nav-cta">Join waitlist</a>
+      <button class="nav-burger" id="navBurger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-          <h1 class="hero-heading">
-            A social network for people who
-            <span class="hero-highlight">don’t want to be watched or silenced.</span>
-          </h1>
+  <div class="page-shell">
+    <!-- =============== HERO =============== -->
+    <main id="hero" class="hero">
+      <section class="hero-left">
+        <span class="pill pill-outline">Community-funded platform</span>
 
-          <p class="hero-sub">
-            Uncensored Social is being built as an alternative to ad-driven,
-            data-harvesting platforms. Separate feeds for New, Following, and Trending,
-            encrypted messaging, and a commitment to free expression and user privacy.
-          </p>
+        <h1 class="hero-heading">
+          Social media for people who
+          <span class="hero-highlight">refuse to be watched or silenced.</span>
+        </h1>
 
-          <ul class="hero-points">
-            <li>• No selling your data. Ever.</li>
-            <li>• Built around free speech with only minimal, clearly defined rules.</li>
-            <li>• End-to-end encrypted messaging is on the roadmap from day one.</li>
-          </ul>
-
-          <div class="hero-cta-row">
-            <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
-            <a href="#mission" class="btn btn-ghost">Read the mission</a>
-          </div>
-
-          <div class="hero-meta-row">
-            <span class="hero-meta">
-              Launching target:
-              <strong>February 28th, 2026</strong>
-            </span>
-            <span class="hero-meta">
-              Early supporters get priority access & recognition.
-            </span>
-          </div>
-        </div>
-
-        <!-- RIGHT SIDE: WAITLIST + COUNTDOWN -->
-        <aside class="hero-right" id="waitlist">
-          <div class="card waitlist-card" id="waitlist-card">
-            <h2 class="card-title">Reserve your place</h2>
-            <p class="card-sub">
-              Join the waitlist to be among the first people invited when Uncensored Social opens.
-            </p>
-
-            <form id="waitlistForm" class="waitlist-form" novalidate>
-              <div class="field-group">
-                <label for="usernameInput">Preferred @username (optional)</label>
-                <input
-                  type="text"
-                  id="usernameInput"
-                  placeholder="@yourhandle"
-                  autocomplete="off"
-                />
-              </div>
-
-              <div class="field-group">
-                <label for="emailInput">Email (or phone required)</label>
-                <input
-                  type="email"
-                  id="emailInput"
-                  placeholder="you@example.com"
-                  autocomplete="email"
-                />
-              </div>
-
-              <div class="field-group">
-                <label for="phoneInput">Phone (optional, for SMS launch alerts)</label>
-                <input
-                  type="tel"
-                  id="phoneInput"
-                  placeholder="+1 555 123 4567"
-                  autocomplete="tel"
-                />
-              </div>
-
-              <button type="submit" id="waitlistButton" class="btn btn-primary btn-full">
-                Join waitlist
-                <span id="waitlistSpinner" class="spinner" aria-hidden="true"></span>
-              </button>
-
-              <p class="helper-text">
-                You’ll only hear about launch and major updates. No spam. No selling lists.
-              </p>
-
-              <p id="waitlistMessage" class="waitlist-message" aria-live="polite"></p>
-            </form>
-          </div>
-
-          <div class="card countdown-card" id="launch">
-            <div class="countdown-header">
-              <span class="pill pill-soft">Launch countdown</span>
-              <span class="countdown-label">Target: February 28th, 2026</span>
-            </div>
-            <div class="countdown-row">
-              <div class="countdown-box">
-                <div id="cdDays" class="countdown-number">–</div>
-                <div class="countdown-unit">Days</div>
-              </div>
-              <div class="countdown-box">
-                <div id="cdHours" class="countdown-number">–</div>
-                <div class="countdown-unit">Hours</div>
-              </div>
-              <div class="countdown-box">
-                <div id="cdMinutes" class="countdown-number">–</div>
-                <div class="countdown-unit">Minutes</div>
-              </div>
-              <div class="countdown-box">
-                <div id="cdSeconds" class="countdown-number">–</div>
-                <div class="countdown-unit">Seconds</div>
-              </div>
-            </div>
-            <p class="countdown-footnote">
-              Exact date may shift slightly as development continues.
-            </p>
-          </div>
-        </aside>
-      </section>
-
-      <!-- MISSION -->
-      <section class="section" id="mission">
-        <div class="section-grid">
-          <div>
-            <h2 class="section-title">Why Uncensored Social exists</h2>
-            <p class="section-body">
-              Most social platforms are optimized for ad revenue, not people. Your data is tracked,
-              your feed is manipulated, and what you see is filtered by opaque rules you never voted on.
-            </p>
-            <p class="section-body">
-              Uncensored Social is a small, independent project funded directly by the people who
-              want it to exist. The goal is simple: build a place where speech and privacy matter
-              more than ad targeting and engagement hacks.
-            </p>
-          </div>
-
-          <div class="pill-list">
-            <div class="pill-block">
-              <h3>Free speech first</h3>
-              <p>Minimal rules focused on spam and clearly illegal content — not silencing unpopular opinions.</p>
-            </div>
-            <div class="pill-block">
-              <h3>Privacy as a default</h3>
-              <p>No selling your data. No building shadow profiles. Encrypted messaging on the roadmap.</p>
-            </div>
-            <div class="pill-block">
-              <h3>Community-funded</h3>
-              <p>No VC money telling the platform what’s “brand safe.” The community keeps it alive.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FEATURES -->
-      <section class="section" id="features">
-        <h2 class="section-title">What the platform is being built to do</h2>
-        <p class="section-body">
-          The first version of Uncensored Social focuses on core features that put control back
-          in the hands of the user — not an algorithm.
+        <p class="hero-sub">
+          Uncensored Social is an independent social platform built around free speech,
+          privacy, and honest timelines — with feeds for New, Following, and Trending
+          instead of one manipulated algorithm.
         </p>
 
-        <div class="feature-grid">
-          <article class="feature-card">
-            <span class="feature-tag">Feed</span>
-            <h3>Multiple ways to see posts</h3>
-            <p>
-              Separate feeds for New, Following, and Trending posts — so you can choose between
-              seeing what’s happening now, what your circle is doing, or what the wider network
-              is reacting to.
-            </p>
-          </article>
+        <ul class="hero-bullets">
+          <li><i class="fa-solid fa-shield-halved"></i>No selling or brokering your data.</li>
+          <li><i class="fa-solid fa-comment-slash"></i>Minimal rules focused on spam & actual crimes — not opinions.</li>
+          <li><i class="fa-solid fa-lock"></i>End-to-end encrypted messaging on the roadmap from day one.</li>
+        </ul>
 
-          <article class="feature-card">
-            <span class="feature-tag">Messaging</span>
-            <h3>Private by design</h3>
-            <p>
-              Messaging is being built with end-to-end encryption in mind from the beginning,
-              instead of bolted on later as a marketing feature.
-            </p>
-          </article>
+        <div class="hero-actions">
+          <a href="#waitlist" class="btn btn-primary">
+            Join waitlist
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+          <a href="#mission" class="btn btn-ghost">Read the mission</a>
+        </div>
 
-          <article class="feature-card">
-            <span class="feature-tag">Ownership</span>
-            <h3>Your handle, your audience</h3>
-            <p>
-              Your username, followers, and content shouldn’t vanish because you said something
-              outside a shifting corporate comfort zone.
-            </p>
-          </article>
-
-          <article class="feature-card">
-            <span class="feature-tag">Transparency</span>
-            <h3>Simple rules, in plain language</h3>
-            <p>
-              No vague policies that can be interpreted a thousand ways. Rules are meant to be
-              clear enough that regular people can actually understand them.
-            </p>
-          </article>
+        <div class="hero-meta">
+          <span><strong>Target launch:</strong> February 28th, 2026</span>
+          <span>Early supporters get priority invites and a “Founding” badge.</span>
         </div>
       </section>
 
-      <!-- DONATE -->
-      <section class="section section-accent" id="donate">
-        <div class="section-grid">
-          <div>
-            <h2 class="section-title">Support the build</h2>
-            <p class="section-body">
-              This isn’t backed by a giant company. It’s one person writing code, paying for
-              servers, and slowly building something that should exist on the internet.
-            </p>
-            <p class="section-body">
-              If you want a future where not every platform is ad-driven and surveilled,
-              you can directly help fund this one.
-            </p>
+      <aside class="hero-right">
+        <!-- Launch status / countdown -->
+        <section class="card card-countdown">
+          <div class="card-header-row">
+            <span class="pill pill-soft">Launch status</span>
+            <span class="card-label">Building in public</span>
+          </div>
 
-            <ul class="donation-list">
-              <li>💻 Programming time for new features, security, and polish.</li>
-              <li>🖥️ Servers, databases, file storage, and media hosting.</li>
-              <li>🔐 Encrypted messaging infrastructure and privacy work.</li>
-              <li>📱 Building native Android and iOS apps once the web is stable.</li>
-            </ul>
-
-            <div class="donation-tiers">
-              <div class="tier">
-                <h3>$5 – Supporter</h3>
-                <p>Helps cover basic server costs and shows you want this to exist.</p>
-              </div>
-              <div class="tier">
-                <h3>$20 – Early Backer</h3>
-                <p>Pushes real features forward faster for launch.</p>
-              </div>
-              <div class="tier">
-                <h3>$50 – Builder</h3>
-                <p>Supports privacy work and messaging infrastructure.</p>
-              </div>
-              <div class="tier">
-                <h3>$100+ – Founding Patron</h3>
-                <p>Major support for the long-term health of the platform.</p>
-              </div>
+          <div class="countdown-row">
+            <div class="count-box">
+              <div id="cdDays" class="count-number">–</div>
+              <div class="count-label">Days</div>
             </div>
-
-            <div class="donate-cta">
-              <a href="payment.html" class="btn btn-primary">
-                Open crypto checkout
-              </a>
-              <p class="helper-text">
-                Donations are optional, but they genuinely make a difference here.
-              </p>
+            <div class="count-box">
+              <div id="cdHours" class="count-number">–</div>
+              <div class="count-label">Hours</div>
+            </div>
+            <div class="count-box">
+              <div id="cdMinutes" class="count-number">–</div>
+              <div class="count-label">Minutes</div>
+            </div>
+            <div class="count-box">
+              <div id="cdSeconds" class="count-number">–</div>
+              <div class="count-label">Seconds</div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- ROADMAP -->
-      <section class="section" id="roadmap">
-        <h2 class="section-title">Roadmap to launch</h2>
-        <p class="section-body">
-          The plan will evolve, but this is the rough order of what’s being built.
-        </p>
-
-        <ol class="roadmap-list">
-          <li>
-            <strong>Core platform:</strong> feed, posting, profiles, likes, saves, basic messaging.
-          </li>
-          <li>
-            <strong>Stability & hardening:</strong> auth, performance, and abuse protections.
-          </li>
-          <li>
-            <strong>Web launch for waitlist users:</strong> early access to the main site.
-          </li>
-          <li>
-            <strong>Encrypted messaging:</strong> roll out end-to-end encrypted DMs.
-          </li>
-          <li>
-            <strong>Mobile apps:</strong> Android and iOS builds once the core experience is solid.
-          </li>
-        </ol>
-      </section>
-
-      <!-- FAQ -->
-      <section class="section" id="faq">
-        <h2 class="section-title">FAQ</h2>
-
-        <div class="faq-item">
-          <h3 class="faq-q">Is this actually going to launch?</h3>
-          <p class="faq-a">
-            That’s the goal. The whole point of this page is to gather people who want
-            it to exist, and to fund the work needed to get it to a stable, public release.
+          <p class="count-footnote">
+            Date may shift slightly — the target is a working, stable beta, not a marketing event.
           </p>
-        </div>
+        </section>
 
-        <div class="faq-item">
-          <h3 class="faq-q">Will it be free to use?</h3>
-          <p class="faq-a">
-            Yes. The intention is for the core platform to be free for regular users.
-            Donations help make that sustainable and reduce pressure for ads or data-selling.
+        <!-- Waitlist card -->
+        <section class="card card-waitlist" id="waitlist">
+          <h2 class="card-title">Reserve your handle</h2>
+          <p class="card-sub">
+            Join the early access list. You’ll only get emails about launch and major updates —
+            no spam, no sharing lists.
           </p>
-        </div>
 
-        <div class="faq-item">
-          <h3 class="faq-q">How are email and phone numbers used?</h3>
-          <p class="faq-a">
-            Only to contact you about launch, major updates, and possibly early access invites.
-            No spam. No selling lists to anyone. You can opt out later if you change your mind.
-          </p>
-        </div>
+          <form id="waitlistForm" class="waitlist-form" novalidate>
+            <label class="field">
+              <span>Preferred @username</span>
+              <input
+                id="usernameInput"
+                type="text"
+                placeholder="@yourhandle"
+                autocomplete="off"
+              />
+            </label>
 
-        <div class="faq-item">
-          <h3 class="faq-q">What kind of content will be removed?</h3>
-          <p class="faq-a">
-            The focus is on blocking obvious spam, bots, and clearly illegal content.
-            The goal is not to remove posts just because they’re controversial or
-            outside of mainstream opinions.
-          </p>
-        </div>
+            <label class="field">
+              <span>Email (or phone required)</span>
+              <input
+                id="emailInput"
+                type="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+              />
+            </label>
 
-        <div class="faq-item">
-          <h3 class="faq-q">Will there be a mobile app?</h3>
-          <p class="faq-a">
-            That’s a major goal. Part of why donations matter is to make it possible to
-            build native Android and iOS apps after the web version is stable.
-          </p>
-        </div>
-      </section>
+            <label class="field">
+              <span>Phone (optional, SMS launch alert)</span>
+              <input
+                id="phoneInput"
+                type="tel"
+                placeholder="+1 555 123 4567"
+                autocomplete="tel"
+              />
+            </label>
+
+            <button type="submit" id="waitlistButton" class="btn btn-primary btn-full">
+              Join waitlist
+              <span id="waitlistSpinner" class="spinner" aria-hidden="true"></span>
+            </button>
+
+            <p class="helper-text">
+              You can unsubscribe anytime. Lists are never sold or rented.
+            </p>
+
+            <p id="waitlistMessage" class="waitlist-message" aria-live="polite"></p>
+          </form>
+        </section>
+      </aside>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
+    <!-- =============== MISSION =============== -->
+    <section id="mission" class="section section-split">
+      <div class="section-left">
+        <h2 class="section-title">Why this needs to exist</h2>
+        <p class="section-body">
+          Big platforms are optimized for ad revenue and “brand safety,” not people.
+          Your feed is tuned for engagement, your data is quietly sold, and what you’re
+          allowed to say keeps shrinking.
+        </p>
+        <p class="section-body">
+          Uncensored Social is being built the opposite way: one person, funded by the
+          community, with a simple goal — create a place online where speech and privacy
+          matter more than ad impressions.
+        </p>
+      </div>
+
+      <div class="section-right section-pills">
+        <article class="pill-block">
+          <h3>Free speech first</h3>
+          <p>Policies are focused on stopping spam, bots, and actual crimes — not unpopular takes.</p>
+        </article>
+        <article class="pill-block">
+          <h3>Privacy by default</h3>
+          <p>No dark patterns, no hidden tracking pixels, no selling your info to ad networks.</p>
+        </article>
+        <article class="pill-block">
+          <h3>Community-funded</h3>
+          <p>No VC board demanding “brand-safe” algorithm tweaks. The people using it are the ones who keep it alive.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =============== FEATURES =============== -->
+    <section id="features" class="section">
+      <h2 class="section-title">What the first version will include</h2>
+      <p class="section-body">
+        The focus at launch is a tight core: posting, discovery, and private conversations.
+        No bloated feature soup — just the things you actually use.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-tag">Feeds</span>
+          <h3>New, Following, and Trending</h3>
+          <p>
+            A true chronological New feed, a Following feed just for people you follow,
+            and a Trending feed that surfaces posts with real activity — not whatever advertisers want.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Profiles</span>
+          <h3>Simple, expressive profiles</h3>
+          <p>
+            Clean profile pages with posts, media, follower counts, and an optional link-in-bio
+            so creators and businesses can send people where they actually want.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Messaging</span>
+          <h3>End-to-end encrypted DMs</h3>
+          <p>
+            Direct messages designed from the start to be encrypted. Conversations are between
+            you and the other person — not you and a data center.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Moderation</span>
+          <h3>Clear, human rules</h3>
+          <p>
+            No vague “community standards” that can mean anything. Rules are short, specific,
+            and written in normal language so you actually know where the line is.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =============== ROADMAP =============== -->
+    <section id="roadmap" class="section">
+      <h2 class="section-title">Roadmap: what happens and when</h2>
+      <p class="section-body">
+        This is the rough sequence. Timelines can shift, but the priorities are clear.
+      </p>
+
+      <ol class="roadmap">
+        <li class="roadmap-item">
+          <div class="roadmap-badge">Now</div>
+          <div class="roadmap-content">
+            <h3>Core foundation</h3>
+            <p>
+              Finish stabilizing the existing prototype: auth, profiles, posting with media,
+              likes, saves, and basic messaging. Clean up the UI and kill bugs.
+            </p>
+          </div>
+        </li>
+
+        <li class="roadmap-item">
+          <div class="roadmap-badge">Q2 2025</div>
+          <div class="roadmap-content">
+            <h3>Feeds & discovery</h3>
+            <p>
+              Ship the New / Following / Trending feeds, hashtag search, better profiles,
+              and basic tools for creators & businesses (link in bio, pinned posts).
+            </p>
+          </div>
+        </li>
+
+        <li class="roadmap-item">
+          <div class="roadmap-badge">Q3 2025</div>
+          <div class="roadmap-content">
+            <h3>Private messaging</h3>
+            <p>
+              Roll out end-to-end encrypted DMs, message requests, and basic group chats.
+              Focus hard on encryption, abuse controls, and performance.
+            </p>
+          </div>
+        </li>
+
+        <li class="roadmap-item">
+          <div class="roadmap-badge">Q4 2025</div>
+          <div class="roadmap-content">
+            <h3>Invite-only beta</h3>
+            <p>
+              Bring in the waitlist in waves. Tune performance, moderation tools, and the
+              overall experience based on real feedback — not corporate “brand studies.”
+            </p>
+          </div>
+        </li>
+
+        <li class="roadmap-item">
+          <div class="roadmap-badge">2026 →</div>
+          <div class="roadmap-content">
+            <h3>Public launch & apps</h3>
+            <p>
+              Open web access wider, then move into native Android & iOS apps. Continue
+              improving encryption, export tools, and business features for brands that
+              want a censorship-resistant presence.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- =============== DONATE / CRYPTO =============== -->
+    <section id="donate" class="section section-accent">
+      <div class="donate-layout">
+        <div class="donate-copy">
+          <h2 class="section-title">Help fund something that actually deserves to exist</h2>
+          <p class="section-body">
+            Uncensored Social isn’t backed by a giant company. It’s being built by one person,
+            and supported by whoever believes the internet needs at least one platform that
+            doesn’t treat users like data to harvest.
+          </p>
+
+          <p class="section-body">
+            All donations are in <strong>crypto</strong>. Funds go directly into:
+          </p>
+
+          <ul class="donation-list">
+            <li>💻 Ongoing development of the platform and encrypted messaging.</li>
+            <li>🖥️ Servers, databases, media storage, and backup infrastructure.</li>
+            <li>🔐 Security reviews and privacy-focused engineering work.</li>
+            <li>📱 Building native Android & iOS apps once the web version is stable.</li>
+          </ul>
+
+          <div class="donation-tiers">
+            <div class="tier">
+              <h3>$5–$20</h3>
+              <p>Supporter — helps pay monthly server bills.</p>
+            </div>
+            <div class="tier">
+              <h3>$25–$99</h3>
+              <p>Early backer — directly accelerates new features.</p>
+            </div>
+            <div class="tier">
+              <h3>$100+</h3>
+              <p>Founding patron — makes long-term growth possible.</p>
+            </div>
+          </div>
+
+          <a href="payment.html" class="btn btn-primary donate-btn">
+            Open crypto checkout
+            <i class="fa-brands fa-bitcoin"></i>
+          </a>
+
+          <p class="helper-text">
+            Donations are optional. The goal is to keep Uncensored Social user-funded instead of ad-funded.
+          </p>
+        </div>
+
+        <aside class="donate-crypto">
+          <h3 class="crypto-title">Supported coins & tokens</h3>
+          <div class="crypto-grid">
+            <div class="crypto-coin">
+              <img src="bitcoin.png" alt="Bitcoin" />
+              <span>Bitcoin (BTC)</span>
+            </div>
+            <div class="crypto-coin">
+              <img src="ethereum.png" alt="Ethereum" />
+              <span>Ethereum (ETH)</span>
+            </div>
+            <div class="crypto-coin">
+              <img src="solana.png" alt="Solana" />
+              <span>Solana (SOL)</span>
+            </div>
+            <div class="crypto-coin">
+              <img src="usdc.png" alt="USD Coin" />
+              <span>USD Coin (USDC)</span>
+            </div>
+            <div class="crypto-coin">
+              <img src="monero.png" alt="Monero" />
+              <span>Monero (XMR)</span>
+            </div>
+          </div>
+
+          <p class="crypto-note">
+            Icons are for display only. Payment addresses and exact options live on
+            <strong>payment.html</strong>, where your crypto checkout happens.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =============== FAQ =============== -->
+    <section id="faq" class="section">
+      <h2 class="section-title">FAQ</h2>
+
+      <div class="faq-item">
+        <h3 class="faq-q">Is this just a concept or is code already written?</h3>
+        <p class="faq-a">
+          Code already exists — profiles, posting, and a working feed are live in development.
+          This page is about building a serious launch version and funding the infrastructure
+          to keep it online long-term.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">How are my email and phone used?</h3>
+        <p class="faq-a">
+          Only to contact you about launch, major updates, and possibly early access.
+          No newsletters, no list-selling, and you can opt out whenever.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">Will it stay free to use?</h3>
+        <p class="faq-a">
+          The plan is yes — the core platform should be free. Crypto donations are how
+          Uncensored Social avoids being forced into aggressive ads and data surveillance.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">What kind of content actually gets removed?</h3>
+        <p class="faq-a">
+          The goal is to remove spam, bot abuse, and clearly illegal content — not controversial takes.
+          The rules will be short, transparent, and publicly documented.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">When will mobile apps be ready?</h3>
+        <p class="faq-a">
+          After the web version is stable and secure. The roadmap targets 2026 for native Android
+          and iOS builds, funded by this page and early supporters.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- =============== FOOTER =============== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
       <span>© <span id="yearSpan"></span> Uncensored Social</span>
       <span class="footer-meta">
-        Built by one person. Supported by whoever believes this should exist.
+        Built by one person. Powered by people who care about speech and privacy.
       </span>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
