@@ -158,16 +158,16 @@ a {
   filter: brightness(1.05);
 }
 
-/* Burger */
+/* Burger (mobile menu button) */
 .nav-burger {
   display: none;
-  margin-left: auto;
-  width: 34px;
-  height: 27px;
-  border-radius: 11px;
+  margin-left: 6px;
+  width: 36px;
+  height: 30px;
+  border-radius: 12px;
   border: 1px solid var(--border-soft);
   background: rgba(15, 23, 42, 0.96);
-  padding: 5px 6px;
+  padding: 7px 7px;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
@@ -175,6 +175,7 @@ a {
 
 .nav-burger span {
   display: block;
+  width: 100%;
   height: 2px;
   border-radius: 999px;
   background: #e5e7eb;
@@ -619,6 +620,15 @@ a {
   border: 1px solid var(--border-soft);
   padding: 11px 12px 10px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+  transform-origin: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.9);
+  border-color: rgba(37, 99, 235, 0.9);
 }
 
 .feature-tag {
@@ -668,8 +678,9 @@ a {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(47, 140, 255, 0.32);
+  background: rgba(75, 85, 99, 0.8);
+  box-shadow: 0 0 0 0 rgba(47, 140, 255, 0.32);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .roadmap-badge {
@@ -681,6 +692,7 @@ a {
   font-size: 0.74rem;
   color: var(--text-subtle);
   margin-bottom: 4px;
+  transition: background 0.25s ease, border 0.25s ease, color 0.25s ease;
 }
 
 .roadmap-content h3 {
@@ -692,6 +704,18 @@ a {
   margin: 0;
   font-size: 0.86rem;
   color: var(--text-muted);
+}
+
+/* When a roadmap step is "active" (JS adds .in-view) */
+.roadmap-item.in-view::before {
+  background: var(--accent-strong);
+  box-shadow: 0 0 0 4px rgba(47, 140, 255, 0.32);
+}
+
+.roadmap-item.in-view .roadmap-badge {
+  background: linear-gradient(135deg, #2f8cff, #2563eb);
+  border-color: #1d4ed8;
+  color: #e5e7eb;
 }
 
 /* Donate */
@@ -709,6 +733,11 @@ a {
   .donate-layout {
     grid-template-columns: 1fr;
   }
+}
+
+.donate-copy {
+  display: flex;
+  flex-direction: column;
 }
 
 .donation-list {
@@ -754,8 +783,10 @@ a {
   color: var(--text-muted);
 }
 
+/* Center the donate button horizontally inside the left column */
 .donate-btn {
-  margin-top: 4px;
+  margin-top: 8px;
+  align-self: center;
 }
 
 .donate-crypto {
@@ -812,6 +843,7 @@ a {
   margin-top: 10px;
   padding-top: 8px;
   border-top: 1px solid var(--border-soft);
+  cursor: pointer;
 }
 
 .faq-item:first-of-type {
@@ -821,15 +853,42 @@ a {
 }
 
 .faq-q {
-  margin: 0 0 4px;
+  margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-q::after {
+  content: "\f107"; /* chevron-down */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.faq-item.open .faq-q::after {
+  transform: rotate(180deg);
 }
 
 .faq-a {
   margin: 0;
   font-size: 0.86rem;
   color: var(--text-muted);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.24s ease, opacity 0.24s ease;
+}
+
+.faq-item.open .faq-a {
+  max-height: 260px;
+  opacity: 1;
+  margin-top: 4px;
 }
 
 /* FOOTER */
@@ -851,6 +910,18 @@ a {
 
 .footer-meta {
   opacity: 0.96;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Small screens */
