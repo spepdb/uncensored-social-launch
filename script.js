@@ -1,177 +1,206 @@
-// ===== FOOTER YEAR =====
-const yearSpan = document.getElementById("yearSpan");
-if (yearSpan) {
-  yearSpan.textContent = new Date().getFullYear();
-}
+/* ============================================================
+   UTIL: SAFE SELECT
+============================================================ */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
-// ===== MOBILE NAV =====
-const navBurger = document.getElementById("navBurger");
-const navLinks = document.getElementById("navLinks");
 
-if (navBurger && navLinks) {
-  navBurger.addEventListener("click", () => {
+/* ============================================================
+   MOBILE NAV: BURGER MENU
+============================================================ */
+const burger = $("#navBurger");
+const navLinks = $("#navLinks");
+
+if (burger && navLinks) {
+  burger.addEventListener("click", () => {
     navLinks.classList.toggle("open");
-  });
 
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.matches(".nav-link")) {
-      navLinks.classList.remove("open");
-    }
+    // Animate burger lines
+    burger.classList.toggle("open");
   });
 }
 
-// ===== WAITLIST FORM =====
-const waitlistForm = document.getElementById("waitlistForm");
-const waitlistMsg = document.getElementById("waitlistMessage");
-const waitlistBtn = document.getElementById("waitlistButton");
 
-if (waitlistForm) {
-  waitlistForm.addEventListener("submit", async (e) => {
+/* ============================================================
+   SMART SCROLL WITH NAV OFFSET
+============================================================ */
+function smoothScrollTo(elementId) {
+  const navHeight = document.querySelector(".top-nav").offsetHeight;
+  const element = document.querySelector(elementId);
+  if (!element) return;
+
+  const yOffset = element.getBoundingClientRect().top + window.pageYOffset;
+  window.scrollTo({
+    top: yOffset - navHeight - 10,
+    behavior: "smooth",
+  });
+}
+
+// Intercept all anchor clicks
+$$('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const href = link.getAttribute("href");
+    if (href === "#" || !href.startsWith("#")) return;
     e.preventDefault();
 
-    if (!waitlistMsg || !waitlistBtn) return;
+    smoothScrollTo(href);
 
-    const username = document.getElementById("usernameInput").value.trim();
-    const email = document.getElementById("emailInput").value.trim();
-    const phone = document.getElementById("phoneInput").value.trim();
+    // Close mobile menu
+    navLinks.classList.remove("open");
+  });
+});
 
-    waitlistMsg.textContent = "";
-    waitlistMsg.className = "waitlist-message";
+
+/* ============================================================
+   WAITLIST FORM
+============================================================ */
+const form = $("#waitlistForm");
+const btn = $("#waitlistButton");
+const msg = $("#waitlistMessage");
+
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = $("#usernameInput").value.trim();
+    const email = $("#emailInput").value.trim();
+    const phone = $("#phoneInput").value.trim();
 
     if (!email && !phone) {
-      waitlistMsg.textContent =
-        "Please enter at least an email or a phone number.";
-      waitlistMsg.classList.add("error");
+      msg.textContent = "Please enter at least an email or phone.";
+      msg.classList.add("error");
       return;
     }
 
-    waitlistBtn.disabled = true;
-    waitlistBtn.classList.add("loading");
+    msg.textContent = "";
+    msg.className = "waitlist-message";
+    btn.classList.add("loading");
+    btn.disabled = true;
 
     try {
-      // Use your existing backend waitlist endpoint
       const res = await fetch(
         "https://uncensored-app-beta-production.up.railway.app/api/waitlist",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username,
-            email,
-            phone,
-            source: "landing-page",
-          }),
+          body: JSON.stringify({ username, email, phone }),
         }
       );
 
-      const data = await res.json().catch(() => ({}));
+      const data = await res.json();
 
       if (!res.ok) {
-        waitlistMsg.textContent =
-          data.error || "Something went wrong. Please try again.";
-        waitlistMsg.classList.add("error");
+        msg.textContent = data.error || "Something went wrong.";
+        msg.classList.add("error");
       } else {
-        waitlistMsg.textContent =
-          "You’re on the waitlist. Thanks for backing this.";
-        waitlistMsg.classList.add("success");
-        waitlistForm.reset();
+        msg.textContent = "You're on the waitlist. Thank you!";
+        msg.classList.add("success");
+        form.reset();
       }
     } catch (err) {
-      console.error("waitlist error", err);
-      waitlistMsg.textContent = "Network error. Please try again.";
-      waitlistMsg.classList.add("error");
+      msg.textContent = "Network error. Try again.";
+      msg.classList.add("error");
     }
 
-    waitlistBtn.disabled = false;
-    waitlistBtn.classList.remove("loading");
+    btn.classList.remove("loading");
+    btn.disabled = false;
   });
 }
 
-// ===== COUNTDOWN =====
-const cdDays = document.getElementById("cdDays");
-const cdHours = document.getElementById("cdHours");
-const cdMinutes = document.getElementById("cdMinutes");
-const cdSeconds = document.getElementById("cdSeconds");
 
-// Last day of February 2026 (UTC)
+/* ============================================================
+   COUNTDOWN TIMER
+============================================================ */
+const cdDays = $("#cdDays");
+const cdHours = $("#cdHours");
+const cdMinutes = $("#cdMinutes");
+const cdSeconds = $("#cdSeconds");
+
+// Feb 28, 2026
 const launchDate = new Date(Date.UTC(2026, 1, 28, 0, 0, 0));
 
 function updateCountdown() {
-  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
-
   const now = new Date();
   const diff = launchDate - now;
 
-  if (diff <= 0) {
-    cdDays.textContent = "0";
-    cdHours.textContent = "00";
-    cdMinutes.textContent = "00";
-    cdSeconds.textContent = "00";
-    return;
-  }
+  if (diff <= 0) return;
 
-  const totalSec = Math.floor(diff / 1000);
-  const days = Math.floor(totalSec / 86400);
-  const hours = Math.floor((totalSec % 86400) / 3600);
-  const minutes = Math.floor((totalSec % 3600) / 60);
-  const seconds = totalSec % 60;
+  let sec = Math.floor(diff / 1000);
+  const days = Math.floor(sec / 86400);
+  sec %= 86400;
+  const hours = Math.floor(sec / 3600);
+  sec %= 3600;
+  const minutes = Math.floor(sec / 60);
+  sec %= 60;
+  const seconds = sec;
 
-  cdDays.textContent = String(days);
+  cdDays.textContent = days;
   cdHours.textContent = String(hours).padStart(2, "0");
   cdMinutes.textContent = String(minutes).padStart(2, "0");
   cdSeconds.textContent = String(seconds).padStart(2, "0");
 }
 
-updateCountdown();
 setInterval(updateCountdown, 1000);
+updateCountdown();
 
-// ===== SCROLL ANIMATIONS (features, roadmap, FAQ) =====
-function setupScrollAnimations() {
-  const animated = [
-    ...document.querySelectorAll(".feature-card"),
-    ...document.querySelectorAll(".roadmap-item"),
-    ...document.querySelectorAll(".faq-item"),
-  ];
 
-  if (!animated.length) return;
-
-  animated.forEach((el) => el.classList.add("animate-on-scroll"));
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          el.classList.add("in-view");
-          observer.unobserve(el);
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
-
-  animated.forEach((el) => observer.observe(el));
-}
-
-setupScrollAnimations();
-
-// ===== FAQ ACCORDION =====
-function setupFaqAccordion() {
-  const faqItems = document.querySelectorAll(".faq-item");
-  if (!faqItems.length) return;
-
-  faqItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      const isOpen = item.classList.contains("open");
-
-      // Close others
-      faqItems.forEach((i) => i.classList.remove("open"));
-
-      if (!isOpen) {
-        item.classList.add("open");
+/* ============================================================
+   SCROLL-REVEAL OBSERVER FOR SECTIONS, CARDS, ROADMAP
+============================================================ */
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
       }
     });
-  });
-}
+  },
+  { threshold: 0.22 }
+);
 
-setupFaqAccordion();
+[
+  ...$$(".animate"),
+  ...$$(".section"),
+  ...$$(".feature-card"),
+  ...$$(".roadmap-item"),
+].forEach((el) => observer.observe(el));
+
+
+/* ============================================================
+   FAQ ACCORDION
+============================================================ */
+const faqItems = $$(".faq-item");
+
+faqItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const open = item.classList.contains("open");
+
+    faqItems.forEach((i) => i.classList.remove("open"));
+
+    if (!open) item.classList.add("open");
+  });
+});
+
+
+/* ============================================================
+   FOOTER YEAR
+============================================================ */
+const yearSpan = $("#yearSpan");
+yearSpan.textContent = new Date().getFullYear();
+
+
+/* ============================================================
+   BUTTON RIPPLES (Micro Interaction)
+============================================================ */
+document.querySelectorAll(".btn").forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    const circle = document.createElement("span");
+    circle.classList.add("ripple");
+    const rect = this.getBoundingClientRect();
+    circle.style.left = `${e.clientX - rect.left}px`;
+    circle.style.top = `${e.clientY - rect.top}px`;
+    this.appendChild(circle);
+    setTimeout(() => circle.remove(), 500);
+  });
+});
