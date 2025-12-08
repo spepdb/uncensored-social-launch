@@ -1,0 +1,289 @@
+/* ===== GENERAL ===== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui;
+  background: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.page-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  background: #1da1f2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.brand-text-main {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.brand-text-sub {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+.site-nav {
+  display: flex;
+  gap: 12px;
+}
+
+.site-nav a {
+  color: #bbb;
+  font-size: 0.85rem;
+}
+
+.site-nav a:hover {
+  color: #fff;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 24px;
+}
+
+@media(max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-copy {
+  background: #111;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #222;
+}
+
+.hero-tag {
+  font-size: 0.7rem;
+  color: #1da1f2;
+  border: 1px solid #1da1f2;
+  border-radius: 999px;
+  padding: 3px 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.hero-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.accent {
+  color: #1da1f2;
+}
+
+.hero-subtitle {
+  color: #aaa;
+  margin-bottom: 18px;
+}
+
+.hero-list {
+  color: #999;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero-badge {
+  font-size: 0.75rem;
+  color: #1da1f2;
+  border: 1px solid #1da1f2;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+/* ===== WAITLIST CARD ===== */
+.hero-waitlist {
+  background: #0b0b0b;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #222;
+}
+
+.waitlist-title {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.waitlist-sub {
+  color: #999;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input {
+  padding: 10px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+}
+
+input:focus {
+  border-color: #1da1f2;
+}
+
+button {
+  padding: 10px;
+  background: #1da1f2;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.waitlist-message {
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.waitlist-message.error { color: #ff4444; }
+.waitlist-message.success { color: #00c851; }
+
+/* ===== COUNTDOWN ===== */
+.countdown {
+  margin-top: 20px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.countdown-label {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+.countdown-row {
+  display: flex;
+  gap: 10px;
+}
+
+.countdown-box {
+  background: #0a0a0a;
+  border: 1px solid #222;
+  padding: 10px;
+  border-radius: 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.countdown-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.countdown-unit {
+  font-size: 0.7rem;
+  color: #aaa;
+}
+
+.countdown-text {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  margin-top: 40px;
+  background: #111;
+  border: 1px solid #222;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: #999;
+  margin-bottom: 14px;
+}
+
+.donation-list,
+.roadmap-list {
+  color: #bbb;
+  line-height: 1.5;
+}
+
+.donate-btn-wrapper {
+  margin-top: 16px;
+}
+
+.donate-btn {
+  padding: 10px 16px;
+  border: 1px solid #1da1f2;
+  border-radius: 999px;
+  color: #1da1f2;
+}
+
+.donate-btn:hover {
+  background: #1da1f2;
+  color: #000;
+}
+
+.faq-item {
+  margin-bottom: 16px;
+}
+
+.faq-q { font-weight: 600; }
+.faq-a { color: #999; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  margin-top: 40px;
+  padding-top: 14px;
+  border-top: 1px solid #222;
+  color: #999;
+  font-size: 0.8rem;
+}
