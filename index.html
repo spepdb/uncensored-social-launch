@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uncensored Social – Prelaunch</title>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-logo">U</div>
+        <div>
+          <div class="brand-text-main">Uncensored Social</div>
+          <div class="brand-text-sub">Built by one person. Funded by the community.</div>
+        </div>
+      </div>
+
+      <nav class="site-nav">
+        <a href="#waitlist">Waitlist</a>
+        <a href="#launch">Launch</a>
+        <a href="#donate">Donate</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main>
+      <section class="hero" id="waitlist">
+        <div class="hero-copy">
+          <div class="hero-tag">Prelaunch – Uncensored Social</div>
+
+          <h1 class="hero-title">
+            A social platform that <span class="accent">actually lets you speak.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Uncensored Social is a new social platform built around choice, privacy, 
+            and no algorithm deciding what you get to see.
+          </p>
+
+          <ul class="hero-list">
+            <li>• Separate feeds for New, Following, and Trending.</li>
+            <li>• End-to-end encrypted messaging is being built.</li>
+            <li>• Minimal moderation, no hidden feed manipulation.</li>
+          </ul>
+
+          <div class="hero-badges">
+            <div class="hero-badge">Launching <strong>February 31st, 2026</strong></div>
+            <div class="hero-badge">Early users get waitlist priority</div>
+          </div>
+        </div>
+
+        <!-- WAITLIST FORM -->
+        <aside class="hero-waitlist">
+          <h2 class="waitlist-title">Join the Waitlist</h2>
+          <p class="waitlist-sub">Get early access at launch.</p>
+
+          <form id="waitlistForm" class="waitlist-form" novalidate>
+            <input type="text" id="usernameInput" placeholder="Preferred @username (optional)" />
+
+            <input type="email" id="emailInput" placeholder="Email (or phone required)" />
+
+            <input type="tel" id="phoneInput" placeholder="Phone number (optional)" />
+
+            <button type="submit" id="waitlistButton">Join Waitlist</button>
+            <p id="waitlistMessage" class="waitlist-message"></p>
+          </form>
+
+          <!-- COUNTDOWN -->
+          <section class="countdown" id="launch">
+            <p class="countdown-label">Countdown to Launch</p>
+
+            <div class="countdown-row">
+              <div class="countdown-box">
+                <div id="cdDays" class="countdown-number">–</div>
+                <div class="countdown-unit">Days</div>
+              </div>
+              <div class="countdown-box">
+                <div id="cdHours" class="countdown-number">–</div>
+                <div class="countdown-unit">Hours</div>
+              </div>
+              <div class="countdown-box">
+                <div id="cdMinutes" class="countdown-number">–</div>
+                <div class="countdown-unit">Minutes</div>
+              </div>
+              <div class="countdown-box">
+                <div id="cdSeconds" class="countdown-number">–</div>
+                <div class="countdown-unit">Seconds</div>
+              </div>
+            </div>
+
+            <p class="countdown-text">
+              Launching <strong>February 31st, 2026</strong>
+            </p>
+          </section>
+        </aside>
+      </section>
+
+      <!-- DONATE SECTION -->
+      <section id="donate" class="section">
+        <h2 class="section-title">Support Development</h2>
+        <p class="section-sub">
+          Donations help fund servers, encrypted messaging, and mobile app development.
+        </p>
+
+        <ul class="donation-list">
+          <li>• Programming & new features</li>
+          <li>• Servers & file storage</li>
+          <li>• Encrypted messaging infrastructure</li>
+          <li>• Android & iOS app development</li>
+        </ul>
+
+        <div class="donate-btn-wrapper">
+          <a class="donate-btn" href="payment.html">Open Crypto Checkout</a>
+        </div>
+      </section>
+
+      <!-- ROADMAP -->
+      <section id="roadmap" class="section">
+        <h2 class="section-title">Roadmap</h2>
+        <ul class="roadmap-list">
+          <li>• Core feed, profiles, posting, likes, saves.</li>
+          <li>• Encrypted messaging rollout.</li>
+          <li>• Public web launch for waitlist users.</li>
+          <li>• Android + iOS native apps.</li>
+        </ul>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="section">
+        <h2 class="section-title">FAQ</h2>
+
+        <div class="faq-item">
+          <p class="faq-q">When is the launch?</p>
+          <p class="faq-a">Targeting February 2026.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Will it be free?</p>
+          <p class="faq-a">Yes, donations help but aren’t required.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">How are emails/phones used?</p>
+          <p class="faq-a">Only for launch info. No spam or selling data.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      © <span id="yearSpan"></span> Uncensored Social
+    </footer>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+</body>
+</html>
