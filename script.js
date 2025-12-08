@@ -1,12 +1,12 @@
-// ========== FOOTER YEAR ==========
+// ===== FOOTER YEAR =====
 const yearSpan = document.getElementById("yearSpan");
 if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// ========== MOBILE NAV ==========
+// ===== MOBILE NAV =====
 const navBurger = document.getElementById("navBurger");
-const navLinks = document.querySelector(".nav-links");
+const navLinks = document.getElementById("navLinks");
 
 if (navBurger && navLinks) {
   navBurger.addEventListener("click", () => {
@@ -20,7 +20,7 @@ if (navBurger && navLinks) {
   });
 }
 
-// ========== WAITLIST FORM ==========
+// ===== WAITLIST FORM =====
 const waitlistForm = document.getElementById("waitlistForm");
 const waitlistMsg = document.getElementById("waitlistMessage");
 const waitlistBtn = document.getElementById("waitlistButton");
@@ -29,6 +29,7 @@ const waitlistSpinner = document.getElementById("waitlistSpinner");
 if (waitlistForm) {
   waitlistForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     if (!waitlistMsg || !waitlistBtn) return;
 
     const username = document.getElementById("usernameInput").value.trim();
@@ -49,7 +50,7 @@ if (waitlistForm) {
     waitlistBtn.classList.add("loading");
 
     try {
-      // TODO: change this endpoint if/when you set up a different backend
+      // use your existing backend waitlist endpoint
       const res = await fetch(
         "https://uncensored-app-beta-production.up.railway.app/api/waitlist",
         {
@@ -72,7 +73,7 @@ if (waitlistForm) {
         waitlistMsg.classList.add("error");
       } else {
         waitlistMsg.textContent =
-          "You’re on the waitlist. Thank you for backing this.";
+          "You’re on the waitlist. Thanks for backing this.";
         waitlistMsg.classList.add("success");
         waitlistForm.reset();
       }
@@ -87,7 +88,7 @@ if (waitlistForm) {
   });
 }
 
-// ========== COUNTDOWN ==========
+// ===== COUNTDOWN =====
 const cdDays = document.getElementById("cdDays");
 const cdHours = document.getElementById("cdHours");
 const cdMinutes = document.getElementById("cdMinutes");
@@ -97,7 +98,7 @@ const cdSeconds = document.getElementById("cdSeconds");
 const launchDate = new Date(Date.UTC(2026, 1, 28, 0, 0, 0));
 
 function updateCountdown() {
-  if (!cdDays) return;
+  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
 
   const now = new Date();
   const diff = launchDate - now;
