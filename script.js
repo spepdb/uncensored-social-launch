@@ -1,32 +1,55 @@
-// FOOTER YEAR
-document.getElementById("yearSpan").textContent = new Date().getFullYear();
+// ========== FOOTER YEAR ==========
+const yearSpan = document.getElementById("yearSpan");
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
 
-// WAITLIST FORM
-const form = document.getElementById("waitlistForm");
-const messageEl = document.getElementById("waitlistMessage");
-const buttonEl = document.getElementById("waitlistButton");
-const spinnerEl = document.getElementById("waitlistSpinner");
+// ========== MOBILE NAV ==========
+const navBurger = document.getElementById("navBurger");
+const navLinks = document.querySelector(".nav-links");
 
-if (form) {
-  form.addEventListener("submit", async (e) => {
+if (navBurger && navLinks) {
+  navBurger.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+
+  navLinks.addEventListener("click", (e) => {
+    if (e.target.matches(".nav-link")) {
+      navLinks.classList.remove("open");
+    }
+  });
+}
+
+// ========== WAITLIST FORM ==========
+const waitlistForm = document.getElementById("waitlistForm");
+const waitlistMsg = document.getElementById("waitlistMessage");
+const waitlistBtn = document.getElementById("waitlistButton");
+const waitlistSpinner = document.getElementById("waitlistSpinner");
+
+if (waitlistForm) {
+  waitlistForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    messageEl.textContent = "";
-    messageEl.className = "waitlist-message";
+    if (!waitlistMsg || !waitlistBtn) return;
 
     const username = document.getElementById("usernameInput").value.trim();
     const email = document.getElementById("emailInput").value.trim();
     const phone = document.getElementById("phoneInput").value.trim();
 
+    waitlistMsg.textContent = "";
+    waitlistMsg.className = "waitlist-message";
+
     if (!email && !phone) {
-      messageEl.textContent = "Enter at least an email or a phone number.";
-      messageEl.classList.add("error");
+      waitlistMsg.textContent =
+        "Please enter at least an email or a phone number.";
+      waitlistMsg.classList.add("error");
       return;
     }
 
-    buttonEl.disabled = true;
-    buttonEl.classList.add("loading");
+    waitlistBtn.disabled = true;
+    waitlistBtn.classList.add("loading");
 
     try {
+      // TODO: change this endpoint if/when you set up a different backend
       const res = await fetch(
         "https://uncensored-app-beta-production.up.railway.app/api/waitlist",
         {
@@ -44,41 +67,42 @@ if (form) {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        messageEl.textContent =
+        waitlistMsg.textContent =
           data.error || "Something went wrong. Please try again.";
-        messageEl.classList.add("error");
+        waitlistMsg.classList.add("error");
       } else {
-        messageEl.textContent = "You're on the waitlist. Thank you.";
-        messageEl.classList.add("success");
-        form.reset();
+        waitlistMsg.textContent =
+          "You’re on the waitlist. Thank you for backing this.";
+        waitlistMsg.classList.add("success");
+        waitlistForm.reset();
       }
     } catch (err) {
-      console.error(err);
-      messageEl.textContent = "Network error. Please try again.";
-      messageEl.classList.add("error");
+      console.error("waitlist error", err);
+      waitlistMsg.textContent = "Network error. Please try again.";
+      waitlistMsg.classList.add("error");
     }
 
-    buttonEl.disabled = false;
-    buttonEl.classList.remove("loading");
+    waitlistBtn.disabled = false;
+    waitlistBtn.classList.remove("loading");
   });
 }
 
-// COUNTDOWN – last day of February 2026
-// (00:00 UTC on 2026-02-28)
-const launchDate = new Date(Date.UTC(2026, 1, 28, 0, 0, 0));
-
+// ========== COUNTDOWN ==========
 const cdDays = document.getElementById("cdDays");
 const cdHours = document.getElementById("cdHours");
 const cdMinutes = document.getElementById("cdMinutes");
 const cdSeconds = document.getElementById("cdSeconds");
 
+// Last day of February 2026 (UTC)
+const launchDate = new Date(Date.UTC(2026, 1, 28, 0, 0, 0));
+
 function updateCountdown() {
   if (!cdDays) return;
 
   const now = new Date();
-  const diffMs = launchDate - now;
+  const diff = launchDate - now;
 
-  if (diffMs <= 0) {
+  if (diff <= 0) {
     cdDays.textContent = "0";
     cdHours.textContent = "00";
     cdMinutes.textContent = "00";
@@ -86,11 +110,11 @@ function updateCountdown() {
     return;
   }
 
-  const totalSeconds = Math.floor(diffMs / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+  const totalSec = Math.floor(diff / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hours = Math.floor((totalSec % 86400) / 3600);
+  const minutes = Math.floor((totalSec % 3600) / 60);
+  const seconds = totalSec % 60;
 
   cdDays.textContent = String(days);
   cdHours.textContent = String(hours).padStart(2, "0");
