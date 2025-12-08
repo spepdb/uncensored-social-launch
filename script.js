@@ -24,7 +24,6 @@ if (navBurger && navLinks) {
 const waitlistForm = document.getElementById("waitlistForm");
 const waitlistMsg = document.getElementById("waitlistMessage");
 const waitlistBtn = document.getElementById("waitlistButton");
-const waitlistSpinner = document.getElementById("waitlistSpinner");
 
 if (waitlistForm) {
   waitlistForm.addEventListener("submit", async (e) => {
@@ -50,7 +49,7 @@ if (waitlistForm) {
     waitlistBtn.classList.add("loading");
 
     try {
-      // use your existing backend waitlist endpoint
+      // Use your existing backend waitlist endpoint
       const res = await fetch(
         "https://uncensored-app-beta-production.up.railway.app/api/waitlist",
         {
@@ -125,3 +124,54 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// ===== SCROLL ANIMATIONS (features, roadmap, FAQ) =====
+function setupScrollAnimations() {
+  const animated = [
+    ...document.querySelectorAll(".feature-card"),
+    ...document.querySelectorAll(".roadmap-item"),
+    ...document.querySelectorAll(".faq-item"),
+  ];
+
+  if (!animated.length) return;
+
+  animated.forEach((el) => el.classList.add("animate-on-scroll"));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.classList.add("in-view");
+          observer.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  animated.forEach((el) => observer.observe(el));
+}
+
+setupScrollAnimations();
+
+// ===== FAQ ACCORDION =====
+function setupFaqAccordion() {
+  const faqItems = document.querySelectorAll(".faq-item");
+  if (!faqItems.length) return;
+
+  faqItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const isOpen = item.classList.contains("open");
+
+      // Close others
+      faqItems.forEach((i) => i.classList.remove("open"));
+
+      if (!isOpen) {
+        item.classList.add("open");
+      }
+    });
+  });
+}
+
+setupFaqAccordion();
