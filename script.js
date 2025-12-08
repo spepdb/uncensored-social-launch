@@ -1,12 +1,11 @@
 /* ============================================================
-   UTIL: SAFE SELECT
+   DOM HELPERS
 ============================================================ */
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
-
 /* ============================================================
-   MOBILE NAV: BURGER MENU
+   NAV BURGER & MOBILE MENU
 ============================================================ */
 const burger = $("#navBurger");
 const navLinks = $("#navLinks");
@@ -14,42 +13,36 @@ const navLinks = $("#navLinks");
 if (burger && navLinks) {
   burger.addEventListener("click", () => {
     navLinks.classList.toggle("open");
-
-    // Animate burger lines
     burger.classList.toggle("open");
   });
 }
 
-
 /* ============================================================
    SMART SCROLL WITH NAV OFFSET
 ============================================================ */
-function smoothScrollTo(elementId) {
-  const navHeight = document.querySelector(".top-nav").offsetHeight;
-  const element = document.querySelector(elementId);
-  if (!element) return;
+function smoothScrollTo(targetSelector) {
+  const nav = document.querySelector(".top-nav");
+  const navHeight = nav ? nav.offsetHeight : 0;
+  const el = document.querySelector(targetSelector);
+  if (!el) return;
 
-  const yOffset = element.getBoundingClientRect().top + window.pageYOffset;
+  const y = el.getBoundingClientRect().top + window.pageYOffset;
   window.scrollTo({
-    top: yOffset - navHeight - 10,
+    top: y - navHeight - 10,
     behavior: "smooth",
   });
 }
 
-// Intercept all anchor clicks
 $$('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
     const href = link.getAttribute("href");
-    if (href === "#" || !href.startsWith("#")) return;
+    if (!href || href === "#") return;
     e.preventDefault();
-
     smoothScrollTo(href);
-
-    // Close mobile menu
-    navLinks.classList.remove("open");
+    if (navLinks) navLinks.classList.remove("open");
+    if (burger) burger.classList.remove("open");
   });
 });
-
 
 /* ============================================================
    WAITLIST FORM
@@ -58,7 +51,7 @@ const form = $("#waitlistForm");
 const btn = $("#waitlistButton");
 const msg = $("#waitlistMessage");
 
-if (form) {
+if (form && btn && msg) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -68,7 +61,7 @@ if (form) {
 
     if (!email && !phone) {
       msg.textContent = "Please enter at least an email or phone.";
-      msg.classList.add("error");
+      msg.className = "waitlist-message error";
       return;
     }
 
@@ -87,26 +80,30 @@ if (form) {
         }
       );
 
-      const data = await res.json();
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
 
       if (!res.ok) {
         msg.textContent = data.error || "Something went wrong.";
-        msg.classList.add("error");
+        msg.className = "waitlist-message error";
       } else {
         msg.textContent = "You're on the waitlist. Thank you!";
-        msg.classList.add("success");
+        msg.className = "waitlist-message success";
         form.reset();
       }
     } catch (err) {
       msg.textContent = "Network error. Try again.";
-      msg.classList.add("error");
+      msg.className = "waitlist-message error";
     }
 
     btn.classList.remove("loading");
     btn.disabled = false;
   });
 }
-
 
 /* ============================================================
    COUNTDOWN TIMER
@@ -116,23 +113,23 @@ const cdHours = $("#cdHours");
 const cdMinutes = $("#cdMinutes");
 const cdSeconds = $("#cdSeconds");
 
-// Feb 28, 2026
+// Feb 28, 2026 (UTC)
 const launchDate = new Date(Date.UTC(2026, 1, 28, 0, 0, 0));
 
 function updateCountdown() {
+  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
+
   const now = new Date();
   const diff = launchDate - now;
-
   if (diff <= 0) return;
 
-  let sec = Math.floor(diff / 1000);
-  const days = Math.floor(sec / 86400);
-  sec %= 86400;
-  const hours = Math.floor(sec / 3600);
-  sec %= 3600;
-  const minutes = Math.floor(sec / 60);
-  sec %= 60;
-  const seconds = sec;
+  let seconds = Math.floor(diff / 1000);
+  const days = Math.floor(seconds / 86400);
+  seconds %= 86400;
+  const hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  const minutes = Math.floor(seconds / 60);
+  seconds %= 60;
 
   cdDays.textContent = days;
   cdHours.textContent = String(hours).padStart(2, "0");
@@ -140,12 +137,11 @@ function updateCountdown() {
   cdSeconds.textContent = String(seconds).padStart(2, "0");
 }
 
-setInterval(updateCountdown, 1000);
 updateCountdown();
-
+setInterval(updateCountdown, 1000);
 
 /* ============================================================
-   SCROLL-REVEAL OBSERVER FOR SECTIONS, CARDS, ROADMAP
+   SCROLL-REVEAL OBSERVER
 ============================================================ */
 const observer = new IntersectionObserver(
   (entries) => {
@@ -156,7 +152,7 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.22 }
+  { threshold: 0.2 }
 );
 
 [
@@ -166,34 +162,29 @@ const observer = new IntersectionObserver(
   ...$$(".roadmap-item"),
 ].forEach((el) => observer.observe(el));
 
-
 /* ============================================================
    FAQ ACCORDION
 ============================================================ */
-const faqItems = $$(".faq-item");
-
-faqItems.forEach((item) => {
+$$(".faq-item").forEach((item) => {
   item.addEventListener("click", () => {
-    const open = item.classList.contains("open");
-
-    faqItems.forEach((i) => i.classList.remove("open"));
-
-    if (!open) item.classList.add("open");
+    const isOpen = item.classList.contains("open");
+    $$(".faq-item").forEach((i) => i.classList.remove("open"));
+    if (!isOpen) item.classList.add("open");
   });
 });
-
 
 /* ============================================================
    FOOTER YEAR
 ============================================================ */
 const yearSpan = $("#yearSpan");
-yearSpan.textContent = new Date().getFullYear();
-
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
 
 /* ============================================================
-   BUTTON RIPPLES (Micro Interaction)
+   BUTTON RIPPLES
 ============================================================ */
-document.querySelectorAll(".btn").forEach((btn) => {
+$$(".btn").forEach((btn) => {
   btn.addEventListener("click", function (e) {
     const circle = document.createElement("span");
     circle.classList.add("ripple");
@@ -202,5 +193,22 @@ document.querySelectorAll(".btn").forEach((btn) => {
     circle.style.top = `${e.clientY - rect.top}px`;
     this.appendChild(circle);
     setTimeout(() => circle.remove(), 500);
+  });
+});
+
+/* ============================================================
+   FEATURE CARDS — HOVER HIGHLIGHT (MORE JS SPICE)
+============================================================ */
+const featureCards = $$(".feature-card");
+
+featureCards.forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    featureCards.forEach((c) => {
+      if (c !== card) c.classList.add("dimmed");
+    });
+  });
+
+  card.addEventListener("mouseleave", () => {
+    featureCards.forEach((c) => c.classList.remove("dimmed"));
   });
 });
